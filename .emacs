@@ -19,8 +19,9 @@
 
 ;; Packages                                                                                       
 (use-package evil
-    :init
-    (evil-mode 1))
+  :ensure evil
+  :init
+  (evil-mode 1))
 
 ;; Style related
 (use-package doom-themes
