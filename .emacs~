@@ -15,20 +15,18 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (ace-window magit doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 ;; Packages                                                                                       
 (use-package evil
-  :ensure evil
-  :init
-  (evil-mode 1))
+    :init
+    (evil-mode 1))
 
 ;; Style related
 (use-package doom-themes
   :ensure doom-themes
   :config (load-theme 'doom-one t))
 (tool-bar-mode -1)
-(menu-bar-mode -1)
 
 ;; turn off bell                                                                                  
 (setq ring-bell-function 'ignore)
@@ -55,11 +53,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(use-package ace-window
-  :ensure t
-  :bind ("M-o" . ace-window)
-  :commands (ace-window)
-  :config
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
-	aw-background t))

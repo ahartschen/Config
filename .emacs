@@ -44,7 +44,8 @@
   :ensure t
   :bind (("M-x" . helm-M-x)
 	 ("C-x C-f" . helm-find-files)
-	 ("C-x r b" . helm-filtered-bookmarks)))
+	 ("C-x b" . helm-mini))
+  :config (setq helm-split-window-in-side-p t))
 
 (use-package company
   :ensure t
