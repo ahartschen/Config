@@ -15,7 +15,7 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 ;; Packages                                                                                       
 (use-package evil
@@ -29,6 +29,7 @@
   :config (load-theme 'doom-one t))
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; turn off bell                                                                                  
 (setq ring-bell-function 'ignore)
@@ -78,6 +79,13 @@
 (use-package magit
   :ensure t)
 
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
 
-  
-		    
+(use-package tide
+  :ensure t)
+
+;; These options are necessary for mysql to work on Windows
+(setq sql-mysql-options '("-C" "-t" "-f" "-n"))
