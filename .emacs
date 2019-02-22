@@ -15,7 +15,7 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 ;; Packages                                                                                       
 (use-package evil
@@ -50,6 +50,7 @@
 (use-package company
   :ensure t
   :config (global-company-mode t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,7 +64,19 @@
   :commands (ace-window)
   :config
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
-	aw-background t))
+	aw-background t
+	aw-dispatch-always t
+	aw-dispatch-alist
+	'((?0 aw-delete-window " Ace - Delete Window")
+	  (?m aw-swap-window " Ace - Swap Window")
+	  (?n aw-flip-window " Ace - Flip Window")
+	  (?2 aw-split-window-vert " Ace - Split Vertical Window")
+	  (?3 aw-split-window-horz " Ace - Split Horizontal Window")
+	  (?1 delete-other-windows " Ace - Delete Other Windows"))))
+
+
+(use-package magit
+  :ensure t)
 
 
   
