@@ -15,7 +15,7 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 ;; Packages                                                                                       
 (use-package evil
@@ -78,6 +78,7 @@
 (use-package magit
   :ensure t)
 
-
-  
-		    
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
