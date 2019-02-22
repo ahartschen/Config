@@ -87,5 +87,8 @@
 (use-package tide
   :ensure t)
 
+(use-package ledger-mode
+  :ensure t)
+
 ;; These options are necessary for mysql to work on Windows
 (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
