@@ -82,3 +82,6 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook))
+
+(use-package ledger-mode
+  :ensure t)
