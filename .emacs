@@ -14,7 +14,7 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
 
@@ -109,6 +109,10 @@
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package nyan-mode
+  :ensure t
+  :config (nyan-mode 1))
 
 ;; These options are necessary for mysql to work on Windows
 (when (eq system-type 'windows-nt)
