@@ -16,8 +16,6 @@
    (quote
     (company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
-
 ;; Packages                                                                                       
 (use-package evil
   :ensure evil
