@@ -16,6 +16,8 @@
    (quote
     (evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
+
 ;; Packages                                                                                       
 (use-package evil
   :ensure evil
@@ -109,4 +111,11 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; These options are necessary for mysql to work on Windows
-(setq sql-mysql-options '("-C" "-t" "-f" "-n"))
+(when (eq system-type 'windows-nt)
+  (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
+  (add-to-list 'default-frame-alist '(font . "Hack"))
+  (set-face-attribute 'default nil
+	              :family "Hack"))
+
+
+
