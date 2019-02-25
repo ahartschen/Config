@@ -91,6 +91,10 @@
 	  (?1 delete-other-windows " Ace - Delete Other Windows"))))
 
 
+;; Allow you to undo/redo changes to windor configuration
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 (use-package magit
   :ensure t)
 
