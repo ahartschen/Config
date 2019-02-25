@@ -3,7 +3,6 @@
   (add-to-list 'load-path "/home/austin/.emacs.d/elpa/use-package-20181119.2350")
   (require 'use-package))
 
-
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 (custom-set-variables
@@ -15,12 +14,23 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 ;; Packages                                                                                       
 (use-package evil
   :ensure evil
   :init
+
+  ;; Tells us the number of matching string
+  (use-package anzu
+    :ensure t
+    :diminish aznu-mode
+    :config
+    (global-anzu-mode 1))
+  (use-package evil-anzu
+    :ensure t)
+
+  :config
   (evil-mode 1))
 
 ;; Style related
@@ -89,6 +99,14 @@
 
 (use-package ledger-mode
   :ensure t)
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 ;; These options are necessary for mysql to work on Windows
 (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
