@@ -14,7 +14,7 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
 
@@ -62,7 +62,12 @@
 
 (use-package company
   :ensure t
-  :config (global-company-mode t))
+  :config
+  (use-package company-quickhelp
+    :ensure t
+    :config
+    (company-quickhelp-mode))
+  (global-company-mode t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -113,6 +118,9 @@
 (use-package nyan-mode
   :ensure t
   :config (nyan-mode 1))
+
+(use-package fireplace
+  :ensure t)
 
 ;; These options are necessary for mysql to work on Windows
 (when (eq system-type 'windows-nt)
