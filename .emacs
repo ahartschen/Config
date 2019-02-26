@@ -41,11 +41,15 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; turn off bell                                                                                  
+;; turn off bell 
 (setq ring-bell-function 'ignore)
 
 (setq org-todo-keywords 
-      '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE" "CANCELED")))
+      '((sequence "TODO" "STARTED" "DONE" "CANCELED" )))
+
+(setq org-todo-keyword-faces
+      '(("TODO" . org-warning) ("STARTED" . "yellow")
+        ("CANCELED" . (:foreground "red" :weight bold))))
 
 (use-package org-bullets
   :ensure t
