@@ -3,7 +3,6 @@
   (add-to-list 'load-path "/home/austin/.emacs.d/elpa/use-package-20181119.2350")
   (require 'use-package))
 
-
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 (custom-set-variables
@@ -15,12 +14,23 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
 
 ;; Packages                                                                                       
 (use-package evil
   :ensure evil
   :init
+
+  ;; Tells us the number of matching string
+  (use-package anzu
+    :ensure t
+    :diminish aznu-mode
+    :config
+    (global-anzu-mode 1))
+  (use-package evil-anzu
+    :ensure t)
+
+  :config
   (evil-mode 1))
 
 ;; Style related
@@ -29,6 +39,7 @@
   :config (load-theme 'doom-one t))
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; turn off bell                                                                                  
 (setq ring-bell-function 'ignore)
@@ -49,7 +60,12 @@
 
 (use-package company
   :ensure t
-  :config (global-company-mode t))
+  :config
+  (use-package company-quickhelp
+    :ensure t
+    :config
+    (company-quickhelp-mode))
+  (global-company-mode t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -75,6 +91,10 @@
 	  (?1 delete-other-windows " Ace - Delete Other Windows"))))
 
 
+;; Allow you to undo/redo changes to windor configuration
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 (use-package magit
   :ensure t)
 
@@ -83,5 +103,33 @@
   :config
   (dashboard-setup-startup-hook))
 
+(use-package tide
+  :ensure t)
+
 (use-package ledger-mode
   :ensure t)
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package nyan-mode
+  :ensure t
+  :config (nyan-mode 1))
+
+(use-package fireplace
+  :ensure t)
+
+;; These options are necessary for mysql to work on Windows
+(when (eq system-type 'windows-nt)
+  (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
+  (add-to-list 'default-frame-alist '(font . "Hack"))
+  (set-face-attribute 'default nil
+	              :family "Hack"))
+
+
+
