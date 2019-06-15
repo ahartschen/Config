@@ -10,11 +10,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(leetcode--loading-mode t)
  '(line-number-mode nil)
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme))))
+    (company-jedi py-autopep8 elpy leetcode kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
+ '(python-shell-interpreter "python3"))
 
 ;; Packages                                                                                       
 (use-package evil
@@ -70,6 +72,14 @@
     :config
     (company-quickhelp-mode))
   (global-company-mode t))
+
+(use-package company-jedi
+  :commands company-jedi
+  :init
+  (defun use-package-company-add-company-jedi ()
+    (unless (member 'company-jedi company-backends)
+	  (add-to-list 'company-backends 'company-jedi)))
+  (add-hook 'python-mode-hook #'use-package-company-add-company-jedi))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -128,6 +138,20 @@
 (use-package fireplace
   :ensure t)
 
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+
+(use-package py-autopep8
+  :ensure t
+  :config
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
 ;; These options are necessary for mysql to work on Windows
 (when (eq system-type 'windows-nt)
   (setq sql-mysql-options '("-C" "-t" "-f" "-n"))
@@ -151,4 +175,15 @@
 (define-key js-mode-map (kbd "M-.") nil)
 
 (add-hook 'js2-mode-hook (lambda ()
-   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+			   (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+;; Auto closing of brackets/braces/paranthesis/quotes/etc.
+(electric-pair-mode 1)
+
+
+(use-package leetcode
+  :ensure t
+  :config
+  (setq leetcode-prefer-language "python3"))
+
+(load-file "~/Config/.config")
