@@ -10,12 +10,20 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ledger-reports
+   (quote
+    (("bal general cleared" "%(binary) -f %(ledger-file) bal \"Liabilities:Credit Cards\" \"Checking\" \"Savings\" --empty --cleared")
+     ("bal general" "%(binary) -f %(ledger-file) bal \"Liabilities:Credit Cards\" \"Checking\" \"Savings\" --empty")
+     ("bal" "%(binary) -f %(ledger-file) bal")
+     ("reg" "%(binary) -f %(ledger-file) reg")
+     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
  '(leetcode--loading-mode t)
  '(line-number-mode nil)
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (company-jedi py-autopep8 elpy leetcode kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
+    (org-alert alert company-jedi py-autopep8 elpy leetcode kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
  '(python-shell-interpreter "python3"))
 
 ;; Packages                                                                                       
@@ -56,6 +64,8 @@
 (use-package org-bullets
   :ensure t
   :hook (org-mode . org-bullets-mode))
+
+(setq org-agenda-files (list "~/Org/personal.org"))
   
 (use-package helm
   :ensure t
@@ -141,7 +151,9 @@
 (use-package elpy
   :ensure t
   :init
-  (elpy-enable))
+  (elpy-enable)
+  :config
+  (setq elpy-shell-echo-input nil))
 
 (use-package py-autopep8
   :ensure t
@@ -180,10 +192,19 @@
 ;; Auto closing of brackets/braces/paranthesis/quotes/etc.
 (electric-pair-mode 1)
 
+(use-package alert
+  :ensure t)
+
+(require 'notifications)
+
+(use-package org-alert
+  :ensure t
+  :config
+  (setq alert-default-style 'notifications))
 
 (use-package leetcode
   :ensure t
   :config
+  (load-file "~/Config/.config")
   (setq leetcode-prefer-language "python3"))
 
-(load-file "~/Config/.config")
