@@ -12,8 +12,10 @@
  ;; If there is more than one, they won't work right.
  '(ledger-reports
    (quote
-    (("bal general cleared" "%(binary) -f %(ledger-file) bal \"Liabilities:Credit Cards\" \"Checking\" \"Savings\" --empty --cleared")
-     ("bal general" "%(binary) -f %(ledger-file) bal \"Liabilities:Credit Cards\" \"Checking\" \"Savings\" --empty")
+    (("bal general " "ledger bal")
+     ("bal \"401k\"" "ledger bal \"401k\"")
+     ("bal general cleared" "%(binary) -f %(ledger-file) bal \"Liabilities:Credit Cards\" \"Checking\" \"Savings\" \"Money Market\" \"CD\" --empty --cleared")
+     ("bal general" "%(binary) -f %(ledger-file) bal \"Liabilities:Credit Cards\" \"Checking\" \"Savings\" \"Money Market\" \"CD\" --empty")
      ("bal" "%(binary) -f %(ledger-file) bal")
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
@@ -23,7 +25,7 @@
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (org-alert alert company-jedi py-autopep8 elpy leetcode kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
+    (haskell-mode org-journal neotree django-mode python-django org-alert alert company-jedi py-autopep8 elpy leetcode kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
  '(python-shell-interpreter "python3"))
 
 ;; Packages                                                                                       
@@ -208,3 +210,7 @@
   (load-file "~/Config/.config")
   (setq leetcode-prefer-language "python3"))
 
+(defun my-python-mode-hook () 
+  (linum-mode 1)) 
+
+(add-hook 'python-mode-hook 'my-python-mode-hook) 
