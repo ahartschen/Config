@@ -17,7 +17,7 @@ unmap('S')
 unmap('D')
 
 // blacklist
-settings.blackListPattern = /.*nytimes.com/crosswords.*;
+settings.blackListPattern = /.*nytimes.com//crosswords.*;
 
 // DuckDuckGo as default search
 settings.defaultSearchEngine = "d";
