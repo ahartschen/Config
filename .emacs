@@ -20,8 +20,9 @@
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
      ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
- '(leetcode--loading-mode t)
+ '(leetcode--loading-mode t nil (leetcode))
  '(line-number-mode nil)
+ '(org-agenda-files nil)
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
@@ -207,7 +208,6 @@
 (use-package leetcode
   :ensure t
   :config
-  (load-file "~/Config/.config")
   (setq leetcode-prefer-language "python3"))
 
 (defun my-python-mode-hook () 
