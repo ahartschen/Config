@@ -20,13 +20,12 @@
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
      ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
- '(leetcode--loading-mode t nil (leetcode))
  '(line-number-mode nil)
  '(org-agenda-files nil)
  '(org-export-with-sub-superscripts (quote {}))
  '(package-selected-packages
    (quote
-    (haskell-mode org-journal neotree django-mode python-django org-alert alert company-jedi py-autopep8 elpy leetcode kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
+    (haskell-mode org-journal neotree django-mode python-django org-alert alert company-jedi py-autopep8 elpy kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
  '(python-shell-interpreter "python3"))
 
 ;; Packages                                                                                       
@@ -136,6 +135,11 @@
 (use-package ledger-mode
   :ensure t)
 
+(add-hook 'ledger-mode-hook
+          (lambda ()
+            (setq-local tab-always-indent 'complete)
+            (setq-local completion-cycle-threshold t)
+            (setq-local ledger-complete-in-steps t)))
 (use-package which-key
   :ensure t
   :config (which-key-mode))
@@ -204,11 +208,6 @@
   :ensure t
   :config
   (setq alert-default-style 'notifications))
-
-(use-package leetcode
-  :ensure t
-  :config
-  (setq leetcode-prefer-language "python3"))
 
 (defun my-python-mode-hook () 
   (linum-mode 1)) 
