@@ -1,6 +1,5 @@
 (package-initialize)
 (eval-when-compile
-    (add-to-list 'load-path "/home/austin/.emacs.d/elpa/use-package-20181119.2350")
     (require 'use-package))
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -20,12 +19,9 @@
     ("reg" "%(binary) -f %(ledger-file) reg")
     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
-    '(line-number-mode nil)
-    '(org-agenda-files nil)
-    '(org-export-with-sub-superscripts (quote {}))
     '(package-selected-packages
     (quote
-    (org-board haskell-mode org-journal neotree django-mode python-django org-alert alert company-jedi py-autopep8 elpy kotlin-mode flutter dart-mode lsp-mode Company-quickhelp fireplace nyan-mode evil-anzu anzu which-key prettier-js md4rd dashboard web-mode doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
+    (org-journal neotree org-alert alert company-jedi py-autopep8 elpy Company-quickhelp evil-anzu anzu which-key dashboard doom-themes use-package company helm ledger-mode org-bullets org-plus-contrib evil-collection atom-one-dark-theme)))
     '(python-shell-interpreter "python3"))
 
 ;; Packages                                                                                       
@@ -53,7 +49,7 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; turn off bell 
+;; turn off bell g
 (setq ring-bell-function 'ignore)
 
 (setq org-todo-keywords 
@@ -64,14 +60,28 @@
     ("CANCELED" . (:foreground "red" :weight bold))))
 
 (use-package org-bullets
-    :ensure t
-    :hook (org-mode . org-bullets-mode))
+  :ensure t
+  :after (org)
+  :hook (org-mode . org-bullets-mode))
 
 (add-hook 'org-mode-hook '(lambda () (setq fill-column 80)))
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
-(setq org-agenda-files (list "~/Org/personal.org"))
-    
+(setq org-directory "~/Dropbox/org")
+(setq org-default-notes-file (concat org-directory "/general.org"))
+
+(setq org-capture-templates
+      '(("t" "TODO" entry (file+headline "~/Dropbox/org/general.org" "Tasks")
+	 "* TODO %?\n SCHEDULED: %U\n")
+	("n" "Note" entry (file+headline "~/Dropbox/org/general.org" "Notes")
+	 "* %?\n")
+	("q" "Questions" entry (file+headline "~/Dropbox/org/general.org" "Questions")
+	 "* %?\n")))
+
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
 (use-package helm
     :ensure t
     :bind (("M-x" . helm-M-x)
@@ -79,12 +89,13 @@
     ("C-x b" . helm-mini))
     :config (setq helm-split-window-in-side-p t))
 
-(use-package org-journal
-  :ensure t
-  :defer t
-  :custom
-  (org-journal-dir "~/Dropbox/org/journal"))
+(setq org-agenda-files (list "~/Dropbox/org/general.org"))
 
+(use-package org-journal
+    :ensure t
+    :defer t
+    :custom
+    (org-journal-dir "~/Dropbox/org/journal"))
 
 (use-package company
     :ensure t
@@ -102,13 +113,6 @@
     (unless (member 'company-jedi company-backends)
     (add-to-list 'company-backends 'company-jedi)))
     (add-hook 'python-mode-hook #'use-package-company-add-company-jedi))
-
-(custom-set-faces
-    ;; custom-set-faces was added by Custom.
-    ;; If you edit it by hand, you could mess it up, so be careful.
-    ;; Your init file should contain only one such instance.
-    ;; If there is more than one, they won't work right.
-    )
 
 ;; Allow you to undo/redo changes to windor configuration
 (when (fboundp 'winner-mode)
@@ -143,10 +147,6 @@
     :ensure t
     :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package nyan-mode
-    :ensure t
-    :config (nyan-mode 1))
-
 (use-package elpy
     :ensure t
     :init
@@ -175,28 +175,6 @@
     :ensure t
     :config
     (setq alert-default-style 'notifications))
-
-(use-package org-board
-    :ensure t
-    :defer t
-    :preface
-    (setq org-board-capture-file "~/dropbox/org/pinboard.org")
-    (setq org-capture-templates
-    `(...
-    ("c" "capture through org protocol" entry
-    (file+headline ,org-board-capture-file "Unsorted")
-    "* %?%:description\n:PROPERTIES:\n:URL: %:link\n:END:\n\n Added %U")
-    ...)))
-
-    ;; :bind (:map org-board-prefix 'org-board-prefix
-    ;; ("n" . org-board-new)
-    ;; ("a" . org-board-archive)
-    ;; ("o" . org-board-open)
-    ;; ("r" . org-board-archive-dry-run)
-    ;; ("k" . org-board-cancel)
-    ;; ("d" . org-board-delete-all)
-    ;; ("f" . org-board-diff)
-    ;; ("3" . org-board-diff3)))
 
 (defun my-python-mode-hook () 
     (linum-mode 1)) 
